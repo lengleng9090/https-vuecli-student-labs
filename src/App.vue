@@ -10,9 +10,7 @@
         <div class="survey-container">
           <form @submit.prevent="submitForm">
             <base-card>
-              <h2 class="heading">
-                How was your Vue.js learning experience?
-              </h2>
+              <h2 class="heading">How was your Vue.js learning experience?</h2>
 
               <label class="label" for="name">Your Name</label>
 
@@ -69,10 +67,14 @@
                 Please choose your learning experience!
               </p>
             </base-card>
-
-            <button class="btn">
+            <base-button
+              @btn-click="displayButtonInfo"
+              bgcolor="bg-red-900"
+              label="submit"
+            ></base-button>
+            <!-- <button class="btn">
               Submit
-            </button>
+            </button> -->
           </form>
         </div>
       </div>
@@ -81,35 +83,40 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BaseButton from "./components/BaseButton.vue";
+import HelloWorld from "./components/HelloWorld.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    HelloWorld,
+    BaseButton,
   },
   data() {
     return {
-      enteredName: '',
+      enteredName: "",
       rating: null,
       invalidNameInput: false,
-      invalidRatingInput: false
-    }
+      invalidRatingInput: false,
+    };
   },
   methods: {
     submitForm() {
-      this.invalidNameInput = this.enteredName === '' ? true : false
-      this.invalidRatingInput = this.rating === null ? true : false
+      this.invalidNameInput = this.enteredName === "" ? true : false;
+      this.invalidRatingInput = this.rating === null ? true : false;
 
-      console.log(`name value: ${this.enteredName}`)
-      console.log(`rating value: ${this.rating}`)
-      console.log(`invalid name: ${this.invalidNameInput}`)
-      console.log(`invalid rating: ${this.invalidRatingInput}`)
+      console.log(`name value: ${this.enteredName}`);
+      console.log(`rating value: ${this.rating}`);
+      console.log(`invalid name: ${this.invalidNameInput}`);
+      console.log(`invalid rating: ${this.invalidRatingInput}`);
     },
 
     validateName() {
-      this.invalidNameInput = this.enteredName === '' ? true : false
-      console.log(`name: ${this.invalidNameInput}`)
+      this.invalidNameInput = this.enteredName === "" ? true : false;
+      console.log(`name: ${this.invalidNameInput}`);
+    },
+    displayButtonInfo(passingBtnInfo){
+      alert('at App.vue, textColor: '+passingBtnInfo.textColor+' ,label : '+passingBtnInfo.label);
     }
-  }
-}
+  },
+};
 </script>
