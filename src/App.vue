@@ -74,9 +74,8 @@
             <ul v-for="surveyResult in surveyResults" :key="surveyResult.id">
               <li>
                 <span
-                  >{{ surveyResult.name }} , rating the learning
-                  experience </span
-                >
+                  >{{ surveyResult.name }} , rating the learning experience
+                </span>
                 <span>{{ surveyResult.rating }}</span>
                 <button
                   @click="showData(surveyResult)"
@@ -135,7 +134,7 @@ export default {
           this.editSurvey({
             id: this.editId,
             name: this.enteredName,
-            rating : this.rating 
+            rating: this.rating,
           });
         } else {
           this.addNewSurvey({
@@ -196,31 +195,35 @@ export default {
       this.enteredName = oldSurvey.name;
       this.rating = oldSurvey.rating;
     },
-    async editSurvey(editingSurvey){
-      try{
-      const res = await fetch("http://localhost:5000/surveyResults/" + editingSurvey.id, {
-          method: "PUT",
-          headers:{
-            'content-type' : 'application/json'
-          },
-          body : JSON.stringify({
-            name:editingSurvey.name,
-            rating : editingSurvey.rating
-          })
-        });
+    async editSurvey(editingSurvey) {
+      try {
+        const res = await fetch(
+          "http://localhost:5000/surveyResults/" + editingSurvey.id,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              name: editingSurvey.name,
+              rating: editingSurvey.rating,
+            }),
+          }
+        );
         const data = await res.json();
-        this.surveyResults = this.surveyResults.map((survey)=> survey.id ===editingSurvey.id? 
-        {...survey,name:data.name,rating:data.rating}:survey
+        this.surveyResults = this.surveyResults.map((survey) =>
+          survey.id === editingSurvey.id
+            ? { ...survey, name: data.name, rating: data.rating }
+            : survey
         );
         this.isEdit = false;
-        this.editId = '';
-        this.enteredName = '';
+        this.editId = "";
+        this.enteredName = "";
         this.rating = null;
-
-    }catch(error){
-      console.log("Could not edit! : " + error);
-    }
-    }
+      } catch (error) {
+        console.log("Could not edit! : " + error);
+      }
+    },
   },
   async created() {
     this.surveyResults = await this.getSurveyResult();
