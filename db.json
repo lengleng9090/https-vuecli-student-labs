@@ -1,0 +1,14 @@
+{
+  "surveyResults": [
+    {
+      "id": 2,
+      "name": "Suda",
+      "rating": "average"
+    },
+    {
+      "name": "thanapat",
+      "rating": "poor",
+      "id": 3
+    }
+  ]
+}
